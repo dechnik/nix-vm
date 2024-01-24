@@ -48,9 +48,6 @@
   # Auto-login the default user on consoles
   services.getty.autologinUser = "me";
 
-  # Use the same keyboard layout in consoles as in the desktop
-  console.useXkbConfig = true;
-
   # Set up zsh
   programs.zsh = {
     enable = true;
@@ -82,66 +79,8 @@
   programs.git.enable = true;
 
   environment.defaultPackages = with pkgs; [
-    firefox
     vm-switch
   ];
-
-  # xserver, but actually really wayland
-  services.xserver = {
-    enable = true;
-    displayManager = {
-      gdm = {
-        enable = true;
-        autoSuspend = false;
-      };
-      autoLogin = {
-        enable = true;
-        user = "me";
-      };
-    };
-
-    desktopManager.gnome = {
-      enable = true;
-      # Set firefox and console as the apps in the dock
-      favoriteAppsOverride = ''
-        [org.gnome.shell]
-        favorite-apps=[ 'firefox.desktop', 'org.gnome.Console.desktop' ]
-      '';
-    };
-  };
-
-  # Set some dconf options declaratively
-  programs.dconf = {
-    enable = true;
-    profiles.user.databases = [ {
-      settings = with lib.gvariant; {
-        # Don't show a welcome dialog
-        "org/gnome/shell" = {
-          welcome-dialog-last-shown-version = "9999999999";
-        };
-
-        # No timeouts
-        "org/gnome/desktop/session" = {
-          idle-delay = mkUint32 0;
-        };
-        "org/gnome/settings-daemon/plugins/power" = {
-          sleep-inactive-ac-type = "nothing";
-          sleep-inactive-battery-type = "nothing";
-        };
-
-        # Faster key repeat
-        "org/gnome/desktop/peripherals/keyboard" = {
-          delay = mkUint32 200;
-          repeat-interval = mkUint32 25;
-        };
-
-        # Bigger default console font size
-        "org/gnome/Console" = {
-          font-scale = 2.0;
-        };
-      };
-    } ];
-  };
 
   virtualisation.vmVariant.virtualisation = {
     # Make the screen size auto-scale
