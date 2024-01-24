@@ -2,12 +2,11 @@
 {
   # Set this to match your users uid (run `id`)
   # Makes the files in this directory editable within the VM without sudo
-  users.users.me.uid = 1001;
+  users.users.me.uid = 1000;
 
   # Set this to your own layout (run `setxkbmap -query`)
   services.xserver.xkb = {
-    layout = "us";
-    variant = "dvp";
+    layout = "pl";
     options = "caps:backspace";
   };
 
@@ -16,9 +15,9 @@
     # 4 cores
     cores = 4;
     # 16GB RAM
-    memorySize = 16 * 1024;
+    memorySize = 8 * 1024;
   };
 
   # Set this to your timezone (run `tzselect`)
-  time.timeZone = "Europe/Zurich";
+  time.timeZone = "Europe/Warsaw";
 }
